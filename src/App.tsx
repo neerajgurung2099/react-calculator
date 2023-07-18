@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
-import "./App.css";
 import ButtonBoard from "./components/ButtonBoard";
 import DisplayResult from "./components/DisplayResult";
+import Modal from "./components/Modal";
 
 export type ExpressionType = {
   expression: string;
@@ -33,14 +33,23 @@ function App() {
     }
   };
   return (
-    <ExpressionContext.Provider
-      value={{ expression, setExpression, calculateExpression }}
-    >
-      <div className="mx-auto w-64 rounded-sm flex items-center flex-col p-2 gap-1 bg-sky-400">
-        <DisplayResult />
-        <ButtonBoard />
+    <>
+      <Modal>
+        <p>
+          Your calculations and results appear here so that you can reuse them
+        </p>
+      </Modal>
+      <div id="app">
+        <ExpressionContext.Provider
+          value={{ expression, setExpression, calculateExpression }}
+        >
+          <div className="mx-auto w-64 rounded-sm flex items-center flex-col p-2 gap-1 bg-sky-400">
+            <DisplayResult />
+            <ButtonBoard />
+          </div>
+        </ExpressionContext.Provider>
       </div>
-    </ExpressionContext.Provider>
+    </>
   );
 }
 

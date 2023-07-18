@@ -14,14 +14,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-#root {
+#root,
+#app {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
 }
 
-#root::before,
-#root::after {
+#app::before,
+#app::after {
   content: "";
   flex-grow: 1;
 }
