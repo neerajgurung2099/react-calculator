@@ -2,14 +2,14 @@ import Button from "./Button";
 
 const ButtonBoard = () => {
   return (
-    <div className="flex flex-col gap-1">
-      <div className="flex gap-1">
+    <div className="flex flex-col gap-1 w-full">
+      <div className="flex gap-1 ">
         <Button text="1" />
         <Button text="2" />
         <Button text="3" />
         <Button text="+" />
       </div>
-      <div className="flex gap-1">
+      <div className="flex gap-1 ">
         <Button text="4" />
         <Button text="5" />
         <Button text="6" />
