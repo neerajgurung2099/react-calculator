@@ -6,6 +6,7 @@ import Modal from "./components/Modal";
 type ModalType = {
   modalVisible: boolean;
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  history: HistoryType[];
 };
 export const ModalContext = createContext<ModalType | null>(null);
 
@@ -35,36 +36,47 @@ export const useExpression = () => {
   return expression;
 };
 
+export type HistoryType = {
+  expression: string;
+  result: string;
+};
+
 function App() {
   const [expression, setExpression] = useState(`0`);
   const [modalVisible, setModalVisible] = useState(false);
+  const [history, setHistory] = useState<HistoryType[]>([]);
   const calculateExpression = () => {
     try {
       const result = eval(`${expression}`);
       setExpression(result);
+      setHistory([
+        ...history,
+        {
+          expression: expression,
+          result: result,
+        },
+      ]);
     } catch {
       setExpression(expression);
     }
   };
   return (
     <>
-      <ModalContext.Provider value={{ modalVisible, setModalVisible }}>
-        <Modal>
-          <p>
-            Your calculations and results appear here so that you can reuse them
-          </p>
-        </Modal>
-        <div id="app">
-          <ExpressionContext.Provider
-            value={{ expression, setExpression, calculateExpression }}
-          >
+      <ExpressionContext.Provider
+        value={{ expression, setExpression, calculateExpression }}
+      >
+        <ModalContext.Provider
+          value={{ modalVisible, setModalVisible, history }}
+        >
+          <Modal></Modal>
+          <div id="app">
             <div className="mx-auto w-64 rounded-sm flex items-center flex-col p-2 gap-1 bg-sky-400">
               <DisplayResult />
               <ButtonBoard />
             </div>
-          </ExpressionContext.Provider>
-        </div>
-      </ModalContext.Provider>
+          </div>
+        </ModalContext.Provider>
+      </ExpressionContext.Provider>
     </>
   );
 }

@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { useModal } from "../App";
+import History from "./History";
 type Props = {
   children?: React.ReactNode;
 };
 const Modal = ({ children }: Props) => {
-  const { modalVisible, setModalVisible } = useModal();
+  const { modalVisible, setModalVisible, history } = useModal();
 
   const handleClick = () => {
     setModalVisible(!modalVisible);
@@ -22,7 +22,22 @@ const Modal = ({ children }: Props) => {
         >
           &times;
         </span>
-        <div>{children}</div>
+        <div className="flex flex-col gap-1">
+          {history.length !== 0 ? (
+            history.map((item, index) => (
+              <History
+                key={index}
+                expression={item.expression}
+                result={item.result}
+              />
+            ))
+          ) : (
+            <span>
+              Your calculations and results appear here so that you can reuse
+              them.
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );
