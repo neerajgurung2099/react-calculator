@@ -1,12 +1,18 @@
 import { AiOutlineHistory } from "react-icons/ai";
-import { useExpression } from "../App";
+import { useExpression, useModal } from "../App";
 const DisplayResult = () => {
   const { expression } = useExpression();
+  const { setModalVisible } = useModal();
+
+  const handleClick = () => {
+    setModalVisible(true);
+  };
   return (
     <>
       <div className="w-full relative">
         <AiOutlineHistory
           size={20}
+          onClick={handleClick}
           className="absolute top-0.5 left-0.5 cursor-pointer "
         />
         <input
