@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import "./App.css";
 import ButtonBoard from "./components/ButtonBoard";
 import DisplayResult from "./components/DisplayResult";
@@ -25,8 +25,12 @@ function App() {
   const [expression, setExpression] = useState(`0`);
 
   const calculateExpression = () => {
-    const result = eval(`${expression}`);
-    setExpression(result);
+    try {
+      const result = eval(`${expression}`);
+      setExpression(result);
+    } catch {
+      setExpression(expression);
+    }
   };
   return (
     <ExpressionContext.Provider

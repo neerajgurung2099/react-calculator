@@ -2,9 +2,8 @@ import { useExpression } from "../App";
 
 type Props = {
   text: string;
-  className?: string;
 };
-const Button = ({ text, className }: Props) => {
+const Button = ({ text }: Props) => {
   const { expression, setExpression, calculateExpression } = useExpression();
   const handleClick = () => {
     switch (text) {
